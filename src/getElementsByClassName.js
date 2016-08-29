@@ -6,25 +6,32 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className) {
 
-  // your code here
+  //declare the result to be returned as an array
   var result = [];
 
-  var getNodes = function(name, node){
+  //the function to be called recursively, takes a node, checks it for className
+  //then if it has children, call itself on the children
+  var getNodes = function(node){
+
+  	//makes sure there is a node
     if(node.classList == undefined || node == undefined) {
     	return;
     }
-    if(node.classList.contains(name)){
+    //if the node has the class, add to result
+    if(node.classList.contains(className)){
    		result.push(node);
     }
+    //if this node has child nodes, do the same thing for all its children
     if(node.childNodes.length > 0){
     	for (var i = 0; i < node.childNodes.length; i++){
-    		getNodes(name, node.childNodes[i]);
+    		getNodes(node.childNodes[i]);
     	}
-    }
-    
+    }   
   }
 
-  getNodes(className, document.body);
+  //call the recursion on document.body
+  getNodes(document.body);
+
   return result;
 
 };
